@@ -12,7 +12,7 @@ namespace MarketService.Mapping
     {
         public void Override(AutoMapping<User> mapping)
         {
-            mapping.Id(s => s.Id);
+            mapping.Id(s => s.Id).Not.GeneratedBy.Assigned();
             mapping.Schema("Market");
         }
     }

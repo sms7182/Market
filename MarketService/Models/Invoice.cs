@@ -31,5 +31,6 @@ namespace MarketService.Models
         public virtual decimal NetPrice { get; set; }
 
         public virtual decimal TotalPrice { get; set; }
+     
     }
 }
