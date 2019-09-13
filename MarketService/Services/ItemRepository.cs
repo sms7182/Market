@@ -1,5 +1,6 @@
 ﻿using MarketService.Interfaces;
 using MarketService.Models;
+using MarketService.Models.Contracts;
 using NHibernate;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,30 @@ namespace MarketService.Services
         {
           var item=  session.Query<Item>().Where(d => d.Code == code).FirstOrDefault<Item>();
             return item;
+        }
+
+        public void Save(ItemInfo iteminfo)
+        {
+            session.BeginTransaction();
+           var item= session.Query<Item>().Where(d => d.Code == iteminfo.Code).FirstOrDefault();
+            if (item != null)
+            {
+                item.Name = iteminfo.Name;
+                item.Unit = (Unit)int.Parse(iteminfo.Unit);
+                item.UnitPrice = iteminfo.UnitPrice;
+                session.SaveOrUpdate(item);
+            }
+            else
+            {
+                item = new Item();
+                item.Name = iteminfo.Name;
+                item.Unit = (Unit)int.Parse(iteminfo.Unit);
+                item.UnitPrice = iteminfo.UnitPrice;
+                item.Code = iteminfo.Code;
+                session.Save(item);
+            }
+            session.Transaction.Commit();
+
         }
     }
 }

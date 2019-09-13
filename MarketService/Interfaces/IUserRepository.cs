@@ -1,4 +1,5 @@
 ﻿using MarketService.Models;
+using MarketService.Models.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace MarketService.Interfaces
     public interface IUserRepository
     {
         User GetByUserName(string username);
-        void RegisterUser(User user);
+        void RegisterUser(UserInfo user);
+       
     }
 }

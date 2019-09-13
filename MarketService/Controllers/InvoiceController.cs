@@ -24,6 +24,7 @@ namespace MarketService.Controllers
         public ActionResult<string> Get(Guid id)
         {
            var invoice= InvoiceRepository.Find(id);
+           
             var ser = JsonConvert.SerializeObject(invoice);
             return ser;
         }
@@ -51,7 +52,7 @@ namespace MarketService.Controllers
         {
         }
 
-        [HttpGet("byid")]
+        [HttpGet("byUserId")]
         public ActionResult<string> InvoiceHistoryPerUser(Guid userid)
         {
           var invoices=  InvoiceRepository.GetInvoicesViaUser(userid);

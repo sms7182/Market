@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MarketService.Interfaces;
+using MarketService.Models.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -25,6 +26,16 @@ namespace MarketService.Controllers
            var d= ItemRepository.GetItemByCode(itemcode);
            var ser= JsonConvert.SerializeObject(d);
             return ser;
+        }
+
+        [HttpPost("byitem")]
+        public void Post(string itemjs)
+        {
+            var iteminfo = JsonConvert.DeserializeObject<ItemInfo>(itemjs);
+            if (iteminfo != null)
+            {
+                ItemRepository.Save(iteminfo);
+            }
         }
 
     }

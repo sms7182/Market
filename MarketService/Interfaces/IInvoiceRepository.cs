@@ -12,7 +12,7 @@ namespace MarketService.Interfaces
     {
         void Save(InvoiceInfo invoice);
         void Delete(Guid id);
-        Invoice Find(Guid id);
-        List<Invoice> GetInvoicesViaUser(Guid userid);
+        InvoiceInfo Find(Guid id);
+        List<InvoiceInfo> GetInvoicesViaUser(Guid userid);
     }
 }

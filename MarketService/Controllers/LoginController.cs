@@ -15,23 +15,29 @@ namespace MarketService.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        public IInvoiceRepository InvoiceRepository { get; set; }
-        public LoginController(IInvoiceRepository invoiceRepository)
+        public IUserRepository UserRepository { get; set; }
+        public LoginController(IUserRepository userRepository)
         {
-            InvoiceRepository = invoiceRepository;
+            UserRepository = userRepository;
         }
-        [HttpGet]
-        public string GetUser()
+        [HttpGet("byuser")]
+        public string GetUser(string userName)
         {
-            var iteminfo = new ItemInfo();
-            iteminfo.Code = "7575";
-            iteminfo.Name = "Titap";
-            iteminfo.Unit = "Number";
-            iteminfo.UnitPrice = 2000;
 
-            var serialize = JsonConvert.SerializeObject(iteminfo);
+            var user=  UserRepository.GetByUserName(userName);
+            var userInfojs = JsonConvert.SerializeObject(user);
+            return userInfojs;
+        }
 
-            return serialize;
+
+        [HttpPost("byusername")]
+        public void Post(string userjs)
+        {
+            var userInfo = JsonConvert.DeserializeObject<UserInfo>(userjs);
+            if (userInfo != null)
+            {
+                UserRepository.RegisterUser(userInfo);
+            }
         }
     }
 }

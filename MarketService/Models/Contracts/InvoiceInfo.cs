@@ -25,7 +25,9 @@ namespace MarketService.Models.Contracts
     public class InvoiceInfoLine
     {
         public Guid Id { get; set; }
-        public virtual string Item { get; set; }
+        public virtual string ItemCode { get; set; }
+        public string ItemName { get; set; }
+        public Guid ItemId { get; set; }
 
         public virtual decimal Quantity { get; set; }
 
