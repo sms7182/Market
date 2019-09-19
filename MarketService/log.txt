@@ -1,0 +1,27 @@
+2019-09-15 20:42:50.214 +04:30 [INF] User profile is available. Using 'C:\Users\mojta\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2019-09-15 20:42:51.899 +04:30 [INF] Request starting HTTP/2.0 GET https://localhost:44334/api/values  
+2019-09-15 20:42:51.976 +04:30 [INF] Executing endpoint 'MarketService.Controllers.ValuesController.BusinessVal (MarketService)'
+2019-09-15 20:42:52.027 +04:30 [INF] Route matched with {action = "BusinessVal", controller = "Values"}. Executing controller action with signature System.String BusinessVal() on controller MarketService.Controllers.ValuesController (MarketService).
+2019-09-15 20:42:56.316 +04:30 [INF] Executing action method MarketService.Controllers.ValuesController.BusinessVal (MarketService) - Validation state: "Valid"
+2019-09-15 20:42:56.599 +04:30 [INF] Executed action method MarketService.Controllers.ValuesController.BusinessVal (MarketService), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 273.0255ms.
+2019-09-15 20:42:56.611 +04:30 [INF] Executing ObjectResult, writing value of type 'System.String'.
+2019-09-15 20:42:56.683 +04:30 [INF] Executed action MarketService.Controllers.ValuesController.BusinessVal (MarketService) in 4650.4291ms
+2019-09-15 20:42:56.685 +04:30 [INF] Executed endpoint 'MarketService.Controllers.ValuesController.BusinessVal (MarketService)'
+2019-09-15 20:42:56.695 +04:30 [INF] Request finished in 4798.8143ms 200 text/plain; charset=utf-8
+2019-09-15 20:42:57.374 +04:30 [INF] Request starting HTTP/2.0 GET https://localhost:44334/favicon.ico  
+2019-09-15 20:42:57.379 +04:30 [INF] Request finished in 4.047ms 404 
+2019-09-15 20:47:45.413 +04:30 [INF] User profile is available. Using 'C:\Users\mojta\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2019-09-15 20:47:46.585 +04:30 [INF] Request starting HTTP/2.0 GET https://localhost:44334/api/values  
+2019-09-15 20:47:46.686 +04:30 [INF] Executing endpoint 'MarketService.Controllers.ValuesController.BusinessVal (MarketService)'
+2019-09-15 20:47:46.730 +04:30 [INF] Route matched with {action = "BusinessVal", controller = "Values"}. Executing controller action with signature System.String BusinessVal() on controller MarketService.Controllers.ValuesController (MarketService).
+2019-09-15 20:47:50.733 +04:30 [INF] Executing action method MarketService.Controllers.ValuesController.BusinessVal (MarketService) - Validation state: "Valid"
+2019-09-15 20:47:51.005 +04:30 [INF] Executed action method MarketService.Controllers.ValuesController.BusinessVal (MarketService), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 258.9644ms.
+2019-09-15 20:47:51.021 +04:30 [INF] Executing ObjectResult, writing value of type 'System.String'.
+2019-09-15 20:47:51.070 +04:30 [INF] Executed action MarketService.Controllers.ValuesController.BusinessVal (MarketService) in 4334.5413ms
+2019-09-15 20:47:51.071 +04:30 [INF] Executed endpoint 'MarketService.Controllers.ValuesController.BusinessVal (MarketService)'
+2019-09-15 20:47:51.078 +04:30 [INF] Request finished in 4500.4144ms 200 text/plain; charset=utf-8
+2019-09-15 20:50:03.155 +04:30 [INF] Request starting HTTP/2.0 POST https://localhost:44334/api/invoice/byinvoice?invoicejs=%25257B%252522Code%252522%25253A%25252275%252522%25252C%252522CreationDate%25javascript%3A%3B2522%25253A%252522%25255C%25252FDate(1568296236190)%25255C%25252F%252522%25252C%252522CreatedBy%252522%25253A%25252209123794709%252522%25252C%252522CreatedById%252522%25253A%25252200000000-0000-0000-0000-000000000000%252522%25252C%252522NetPrice%252522%25253A0.0%25252C%252522TotalPrice%252522%25253A3000.00000%25252C%252522Id%252522%25253A%25252200000000-0000-0000-0000-000000000000%252522%25252C%252522InvoiceInfoLines%252522%25253A%25255B%25257B%252522Id%252522%25253A%25252200000000-0000-0000-0000-000000000000%252522%25252C%252522Item%252522%25253A%25252220549000017296878214%252522%25252C%252522Quantity%252522%25253A1.0%25252C%252522UnitPrice%252522%25253A3000.00000%25252C%252522NetPrice%252522%25253A3000.00000%25252C%252522TotalPrice%252522%25253A3000.00000%25257D%25255D%25257D application/json 380
+2019-09-15 20:50:03.159 +04:30 [INF] Executing endpoint 'MarketService.Controllers.InvoiceController.Post (MarketService)'
+2019-09-15 20:50:03.220 +04:30 [INF] Route matched with {action = "Post", controller = "Invoice"}. Executing controller action with signature Void Post(System.String) on controller MarketService.Controllers.InvoiceController (MarketService).
+2019-09-15 20:50:10.924 +04:30 [INF] Executing action method MarketService.Controllers.InvoiceController.Post (MarketService) - Validation state: "Valid"
+2019-09-15 20:50:12.931 +04:30 [INF] Founded Post method
