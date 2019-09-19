@@ -118,6 +118,7 @@ namespace MarketService.Services
             {
                 var user=session.Query<User>().Where(d => d.UserName == invoiceinfo.CreatedBy).FirstOrDefault();
                 invoice = new Invoice();
+                invoice.Id = invoiceinfo.Id;
                 invoice.TotalPrice = invoiceinfo.TotalPrice;
                 invoice.NetPrice = invoiceinfo.NetPrice;
                 invoice.Code = invoiceinfo.Code;

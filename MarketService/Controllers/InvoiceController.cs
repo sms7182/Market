@@ -6,23 +6,38 @@ using MarketService.Interfaces;
 using MarketService.Models.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-
+using Serilog;
+using Serilog.Events;
 namespace MarketService.Controllers
 {
+
+    public class ROCR
+    {
+        public int requestid { get; set; }
+        public string content { get; set; }
+    }
     [Route("api/[controller]")]
     [ApiController]
     public class InvoiceController : ControllerBase
     {
-
+        
+        ILogger<InvoiceController> logger;
         public IInvoiceRepository InvoiceRepository { get; set; }
-        public InvoiceController(IInvoiceRepository _invoiceRepository)
+        public InvoiceController(IInvoiceRepository _invoiceRepository,ILogger<InvoiceController> _logger)
         {
             InvoiceRepository = _invoiceRepository;
+            logger = _logger;
         }
-         [HttpGet("byid")]
+         [HttpGet()]
         public ActionResult<string> Get(Guid id)
         {
+
+            if (id == Guid.Empty)
+            {
+                return "Ok";
+            }
            var invoice= InvoiceRepository.Find(id);
            
             var ser = JsonConvert.SerializeObject(invoice);
@@ -30,13 +45,30 @@ namespace MarketService.Controllers
         }
 
         // POST api/values
-        [HttpPost("byinvoice")]
-        public void Post(string invoicejs)
+       //  [HttpPost()]
+        public void Post([FromBody]InvoiceInfo invoiceInfo)
         {
-           var invoiceinfo= JsonConvert.DeserializeObject<InvoiceInfo>(invoicejs);
-            if (invoiceinfo != null)
+
+            
+            if (logger != null)
             {
-                InvoiceRepository.Save(invoiceinfo);
+                logger.Log(LogLevel.Information, "Founded Post method");
+              
+            }
+
+            //if (string.IsNullOrWhiteSpace(invoicejs))
+            //{
+            //    logger.LogError("invoice js is null");
+            //}
+            //else
+            //{
+            //    logger.Log(LogLevel.Information,string.Format(" invoice js is: {0}", invoicejs));
+            //}
+            //var invoiceinfo= JsonConvert.DeserializeObject<InvoiceInfo>(invoicejs);
+            if (invoiceInfo != null)
+            { 
+                logger.Log(LogLevel.Information,"start saving");
+                InvoiceRepository.Save(invoiceInfo);
             }
         }
 
