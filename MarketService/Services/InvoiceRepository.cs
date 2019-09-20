@@ -65,7 +65,7 @@ namespace MarketService.Services
         }
         public List<InvoiceInfo> GetInvoicesViaUser(Guid userid)
         {
-           var invoices= session.Query<Invoice>().Where(d => d.CreatedById == userid).ToList();
+           var invoices= session.Query<Invoice>().Where(d => d.CreatedById == userid).OrderByDescending(d=>d.CreationDate).ToList();
             List<InvoiceInfo> invoiceInfos = new List<InvoiceInfo>();
             for(var i = 0; i < invoices.Count; i++)
             {

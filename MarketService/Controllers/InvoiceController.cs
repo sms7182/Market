@@ -56,15 +56,7 @@ namespace MarketService.Controllers
               
             }
 
-            //if (string.IsNullOrWhiteSpace(invoicejs))
-            //{
-            //    logger.LogError("invoice js is null");
-            //}
-            //else
-            //{
-            //    logger.Log(LogLevel.Information,string.Format(" invoice js is: {0}", invoicejs));
-            //}
-            //var invoiceinfo= JsonConvert.DeserializeObject<InvoiceInfo>(invoicejs);
+          
             if (invoiceInfo != null)
             { 
                 logger.Log(LogLevel.Information,"start saving");
