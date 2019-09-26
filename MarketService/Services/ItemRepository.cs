@@ -29,7 +29,7 @@ namespace MarketService.Services
             if (item != null)
             {
                 item.Name = iteminfo.Name;
-                item.Unit = (Unit)int.Parse(iteminfo.Unit);
+                item.Unit = int.Parse(iteminfo.Unit);
                 item.UnitPrice = iteminfo.UnitPrice;
                 session.SaveOrUpdate(item);
             }
@@ -37,7 +37,7 @@ namespace MarketService.Services
             {
                 item = new Item();
                 item.Name = iteminfo.Name;
-                item.Unit = (Unit)int.Parse(iteminfo.Unit);
+                item.Unit = int.Parse(iteminfo.Unit);
                 item.UnitPrice = iteminfo.UnitPrice;
                 item.Code = iteminfo.Code;
                 session.Save(item);

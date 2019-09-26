@@ -142,6 +142,11 @@ namespace MarketService
             {
                 return new ItemRepository(nc.Session);
             });
+
+            services.AddSingleton<IUserRepository, UserRepository>(d =>
+            {
+                return new UserRepository(nc.Session);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

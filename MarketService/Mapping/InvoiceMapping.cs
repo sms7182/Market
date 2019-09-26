@@ -14,10 +14,11 @@ namespace MarketService.Mapping
        
         public void Override(AutoMapping<Invoice> mapping)
         {
-            mapping.Id(d => d.Id).Not.GeneratedBy.Assigned();
+            mapping.Id(d => d.Id).GeneratedBy.Assigned();
             mapping.Schema("Market");
             mapping.References(d => d.CreatedBy).Column("CreatedById").ReadOnly();
             mapping.Map(d => d.CreatedById).Column("CreatedById");
+            mapping.Map(d=>d.CreationDate);
             mapping.HasMany(d => d.InvoiceLines).Cascade.All().KeyColumn("InvoiceId");
         }
     }
@@ -27,7 +28,7 @@ namespace MarketService.Mapping
       
         public void Override(AutoMapping<InvoiceLine> mapping)
         {
-            mapping.Id(d => d.Id).Not.GeneratedBy.Assigned();
+            mapping.Id(d => d.Id).GeneratedBy.Assigned();
             mapping.Schema("Market");
             mapping.References(d => d.Item).Column("ItemId");
        

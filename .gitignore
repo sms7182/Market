@@ -328,3 +328,10 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+/netcoreapp2.2
+/MarketService/Dockerfile
+/.dockerignore
+/MarketService/fandogh.yml
+/Dockerfile
+/fandogh.yml
+/DB/dockerfile

@@ -17,20 +17,20 @@ namespace MarketService.Models
 
         public virtual User  CreatedBy{ get; set; }
         public virtual Guid CreatedById { get; set; }
-        public virtual decimal NetPrice { get; set; }
-        public virtual decimal TotalPrice { get; set; }
+        public virtual double NetPrice { get; set; }
+        public virtual double TotalPrice { get; set; }
     }
     public class InvoiceLine : BaseClass
     {
         public virtual Item Item { get; set; }
 
-        public virtual decimal Quantity { get; set; }
+        public virtual double Quantity { get; set; }
 
-        public virtual decimal  UnitPrice { get; set; }
+        public virtual double  UnitPrice { get; set; }
 
-        public virtual decimal NetPrice { get; set; }
+        public virtual double NetPrice { get; set; }
 
-        public virtual decimal TotalPrice { get; set; }
+        public virtual double TotalPrice { get; set; }
      
     }
 }

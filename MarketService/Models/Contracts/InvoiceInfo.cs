@@ -16,8 +16,8 @@ namespace MarketService.Models.Contracts
 
         public virtual string  CreatedBy { get; set; }
         public Guid CreatedById { get; set; }
-        public virtual decimal NetPrice { get; set; }
-        public virtual decimal TotalPrice { get; set; }
+        public virtual double NetPrice { get; set; }
+        public virtual double TotalPrice { get; set; }
         public Guid Id { get; set; }
         public List<InvoiceInfoLine> InvoiceInfoLines { get; set; }
 
@@ -29,13 +29,13 @@ namespace MarketService.Models.Contracts
         public string ItemName { get; set; }
         public Guid ItemId { get; set; }
 
-        public virtual decimal Quantity { get; set; }
+        public virtual double Quantity { get; set; }
 
-        public virtual decimal UnitPrice { get; set; }
+        public virtual double UnitPrice { get; set; }
 
-        public virtual decimal NetPrice { get; set; }
+        public virtual double NetPrice { get; set; }
 
-        public virtual decimal TotalPrice { get; set; }
+        public virtual double TotalPrice { get; set; }
     }
 
 }

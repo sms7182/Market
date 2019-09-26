@@ -12,9 +12,10 @@ namespace MarketService.Mapping
     {
         public void Override(AutoMapping<Item> mapping)
         {
-            mapping.Id(d => d.Id).Not.GeneratedBy.Assigned();
+            mapping.Id(d => d.Id).GeneratedBy.Assigned();
             mapping.Schema("Market");
-            mapping.Map(s => s.Unit).CustomType<Unit>();
+            mapping.Map(s => s.Unit).Nullable();
+            mapping.Map(d => d.Code).CustomSqlType("text");
            
         }
     }

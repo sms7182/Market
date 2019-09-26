@@ -11,7 +11,7 @@ namespace MarketService.Models
         public virtual string Code { get; set; }
         public virtual string Name { get; set; }
 
-        public virtual Unit Unit { get; set; }
+        public virtual int Unit { get; set; }
 
         public virtual decimal UnitPrice { get; set; }
     }
