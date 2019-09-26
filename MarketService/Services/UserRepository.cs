@@ -16,30 +16,64 @@ namespace MarketService.Services
         {
             session = _session;
         }
-        public User GetByUserName(string username)
+        public UserInfo GetByUserName(string username)
         {
            var user= session.Query<User>().Where(d => d.UserName == username).FirstOrDefault();
-            return user;
+            UserInfo userInfo = null;
+            if(user!=null)
+            {
+                userInfo.Id = user.Id;
+                userInfo.PhoneNumber = user.UserName;
+                userInfo.Password = user.Password;
+            }
+
+            return userInfo;
         }
 
-        public void RegisterUser(UserInfo userInfo)
+        public bool RegisterUser(UserInfo userInfo)
         {
-           var user= session.Query<User>().Where(d => d.UserName == userInfo.UserName).FirstOrDefault();
-            session.BeginTransaction();
-            if (user != null)
+            try
             {
-                user.Password = userInfo.UserName;
-                session.SaveOrUpdate(user);
+                var user = session.Query<User>().Where(d => d.UserName == userInfo.PhoneNumber).FirstOrDefault();
+                session.BeginTransaction();
+                if (user != null)
+                {
+                    user.Password = userInfo.Password;
+                    session.SaveOrUpdate(user);
+                }
+                else
+                {
+                    user.UserName = userInfo.PhoneNumber;
+                    user.Password = userInfo.Password;
+                    session.Save(user);
+                }
+                session.Transaction.Commit();
+                return true;
             }
-            else
+            catch (Exception)
             {
-                user.UserName = userInfo.UserName;
-                user.Password = userInfo.Password;
-                session.Save(user);
+                return false;                
             }
-            session.Transaction.Commit();
+        }
+        public bool DeleteUser(Guid id)
+        {
+            try
+            {
+                var user = session.Get<User>(id);
+                session.BeginTransaction();
+                if (user != null)
+                {
+                    session.Delete(user);
+                }
+                
+                session.Transaction.Commit();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
-        
     }
 }
