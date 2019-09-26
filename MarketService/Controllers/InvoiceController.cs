@@ -31,13 +31,17 @@ namespace MarketService.Controllers
 
         // POST api/values
         [HttpPost("byinvoice")]
-        public void Post(string invoicejs)
+        public ActionResult<string> Post(string invoicejs)
         {
            var invoiceinfo= JsonConvert.DeserializeObject<InvoiceInfo>(invoicejs);
+            var result = false;
             if (invoiceinfo != null)
             {
-                InvoiceRepository.Save(invoiceinfo);
+                result = InvoiceRepository.Save(invoiceinfo);
             }
+
+            var resultJson = JsonConvert.SerializeObject(result);
+            return resultJson;
         }
 
         // PUT api/values/5

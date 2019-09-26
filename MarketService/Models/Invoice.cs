@@ -13,6 +13,7 @@ namespace MarketService.Models
         }
         public virtual ICollection<InvoiceLine> InvoiceLines { get; set; }
         public virtual string Code { get; set; }
+        public virtual Store Store { get; set; }
         public virtual DateTime CreationDate { get; set; }
 
         public virtual User  CreatedBy{ get; set; }

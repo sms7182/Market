@@ -10,7 +10,7 @@ namespace MarketService.Interfaces
 {
    public interface IInvoiceRepository
     {
-        void Save(InvoiceInfo invoice);
+        bool Save(InvoiceInfo invoice);
         void Delete(Guid id);
         InvoiceInfo Find(Guid id);
         List<InvoiceInfo> GetInvoicesViaUser(Guid userid);

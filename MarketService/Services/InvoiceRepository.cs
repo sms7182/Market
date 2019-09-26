@@ -40,11 +40,12 @@ namespace MarketService.Services
         {
             var invoiceforreturn = new InvoiceInfo();
             invoiceforreturn.Id = invoice.Id;
+            invoiceforreturn.StoreName = invoice.Store.Name;
             invoiceforreturn.NetPrice = invoice.NetPrice;
             invoiceforreturn.TotalPrice = invoice.TotalPrice;
             invoiceforreturn.Code = invoice.Code;
-            invoiceforreturn.CreatedBy = invoice.CreatedBy.UserName;
-            invoiceforreturn.CreatedById = invoice.CreatedBy.Id;
+            //invoiceforreturn.CreatedBy = invoice.CreatedBy.UserName;
+            //invoiceforreturn.CreatedById = invoice.CreatedBy.Id;
             invoiceforreturn.CreationDate = invoice.CreationDate;
             for (var i = 0; i < invoice.InvoiceLines.Count; i++)
             {
@@ -75,58 +76,62 @@ namespace MarketService.Services
             return invoiceInfos;
         }
 
-        public void Save(InvoiceInfo invoiceinfo)
+        public bool Save(InvoiceInfo invoiceinfo)
         {
-            session.BeginTransaction();
-            var invoice = session.Get<Invoice>(invoiceinfo.Id);
-            if (invoice != null)
+            var success = false;
+            try
             {
-                invoice.NetPrice = invoiceinfo.NetPrice;
-                invoice.TotalPrice = invoiceinfo.TotalPrice;
-
-
-            var resrictions= Restrictions.On<Item>(val => val.Code).IsIn(invoiceinfo.InvoiceInfoLines.Select(d=>d.ItemCode).ToList());
-                var loadedItems=session.QueryOver<Item>().Where(resrictions).List();
-                for (var i = 0; i < invoiceinfo.InvoiceInfoLines.Count; i++)
+                session.BeginTransaction();
+                var invoice = session.Get<Invoice>(invoiceinfo.Id);
+                if (invoice != null)
                 {
-                   var tempinfo= invoiceinfo.InvoiceInfoLines[i];
-                    if (invoice.InvoiceLines.Any(d => d.Item.Code == tempinfo.ItemCode))
-                    {
-                        var lineFounded = invoice.InvoiceLines.FirstOrDefault(d => d.Item.Code == tempinfo.ItemCode);
-                        lineFounded.Quantity = tempinfo.Quantity;
-                        lineFounded.NetPrice = tempinfo.NetPrice;
-                        lineFounded.UnitPrice = tempinfo.UnitPrice;
-                        lineFounded.TotalPrice = tempinfo.TotalPrice;
+                    invoice.NetPrice = invoiceinfo.NetPrice;
+                    invoice.TotalPrice = invoiceinfo.TotalPrice;
 
-                    }
-                    else
+                    var resrictions = Restrictions.On<Item>(val => val.Code).IsIn(invoiceinfo.InvoiceInfoLines.Select(d => d.ItemCode).ToList());
+                    var loadedItems = session.QueryOver<Item>().Where(resrictions).List();
+                    for (var i = 0; i < invoiceinfo.InvoiceInfoLines.Count; i++)
                     {
-                       var invoiceLine= new InvoiceLine();
-                       var item= loadedItems.FirstOrDefault(d => d.Code == tempinfo.ItemCode);
-                        invoiceLine.Item = item;
-                        invoiceLine.Quantity = tempinfo.Quantity;
-                        invoiceLine.NetPrice = tempinfo.Quantity * tempinfo.UnitPrice;
-                        invoiceLine.UnitPrice = tempinfo.UnitPrice;
-                        invoiceLine.TotalPrice = tempinfo.TotalPrice;
-                        invoice.InvoiceLines.Add(invoiceLine);
+                        var tempinfo = invoiceinfo.InvoiceInfoLines[i];
+                        if (invoice.InvoiceLines.Any(d => d.Item.Code == tempinfo.ItemCode))
+                        {
+                            var lineFounded = invoice.InvoiceLines.FirstOrDefault(d => d.Item.Code == tempinfo.ItemCode);
+                            lineFounded.Quantity = tempinfo.Quantity;
+                            lineFounded.NetPrice = tempinfo.NetPrice;
+                            lineFounded.UnitPrice = tempinfo.UnitPrice;
+                            lineFounded.TotalPrice = tempinfo.TotalPrice;
+
+                        }
+                        else
+                        {
+                            var invoiceLine = new InvoiceLine();
+                            var item = loadedItems.FirstOrDefault(d => d.Code == tempinfo.ItemCode);
+                            invoiceLine.Item = item;
+                            invoiceLine.Quantity = tempinfo.Quantity;
+                            invoiceLine.NetPrice = tempinfo.Quantity * tempinfo.UnitPrice;
+                            invoiceLine.UnitPrice = tempinfo.UnitPrice;
+                            invoiceLine.TotalPrice = tempinfo.TotalPrice;
+                            invoice.InvoiceLines.Add(invoiceLine);
+                        }
                     }
+
+                    session.SaveOrUpdate(invoice);
                 }
-
-                session.SaveOrUpdate(invoice);
-            }
-            else
-            {
-                var user=session.Query<User>().Where(d => d.UserName == invoiceinfo.CreatedBy).FirstOrDefault();
-                invoice = new Invoice();
-                invoice.TotalPrice = invoiceinfo.TotalPrice;
-                invoice.NetPrice = invoiceinfo.NetPrice;
-                invoice.Code = invoiceinfo.Code;
-                invoice.CreatedById = user.Id;
-                invoice.CreationDate = DateTime.UtcNow;
-                var resrictions = Restrictions.On<Item>(val => val.Code).IsIn(invoiceinfo.InvoiceInfoLines.Select(d => d.ItemCode).ToList());
-                var loadedItems = session.QueryOver<Item>().Where(resrictions).List();
-                for (var i = 0; i < invoiceinfo.InvoiceInfoLines.Count; i++)
+                else
                 {
+                    //var user = session.Query<User>().Where(d => d.UserName == invoiceinfo.CreatedBy).FirstOrDefault();
+                    invoice = new Invoice();
+                    invoice.TotalPrice = invoiceinfo.TotalPrice;
+                    invoice.NetPrice = invoiceinfo.NetPrice;
+                    invoice.Code = invoiceinfo.Code;
+                    invoice.CreatedById = invoiceinfo.CreatedById;
+                    invoice.CreationDate = invoiceinfo.CreationDate;
+                    invoice.Store = session.Get<Store>(invoiceinfo.StoreId);
+
+                    var resrictions = Restrictions.On<Item>(val => val.Code).IsIn(invoiceinfo.InvoiceInfoLines.Select(d => d.ItemCode).ToList());
+                    var loadedItems = session.QueryOver<Item>().Where(resrictions).List();
+                    for (var i = 0; i < invoiceinfo.InvoiceInfoLines.Count; i++)
+                    {
                         var tempinfo = invoiceinfo.InvoiceInfoLines[i];
                         var invoiceLine = new InvoiceLine();
                         var item = loadedItems.FirstOrDefault(d => d.Code == tempinfo.ItemCode);
@@ -135,12 +140,20 @@ namespace MarketService.Services
                         invoiceLine.NetPrice = tempinfo.Quantity * tempinfo.UnitPrice;
                         invoiceLine.UnitPrice = tempinfo.UnitPrice;
                         invoiceLine.TotalPrice = tempinfo.TotalPrice;
-                       
+
                         invoice.InvoiceLines.Add(invoiceLine);
-                    
+
+                    }
+                    session.Save(invoice);
                 }
-                session.Save(invoice);
+
                 session.Transaction.Commit();
+                return true;
+
+            }
+            catch (Exception)
+            {
+                return false;
             }
             
         }
