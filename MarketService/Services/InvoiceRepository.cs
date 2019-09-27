@@ -126,7 +126,8 @@ namespace MarketService.Services
                     invoice.Code = invoiceinfo.Code;
                     invoice.CreatedById = invoiceinfo.CreatedById;
                     invoice.CreationDate = invoiceinfo.CreationDate;
-                    invoice.Store = session.Get<Store>(invoiceinfo.StoreId);
+                    //invoice.Store = session.Get<Store>(invoiceinfo.StoreId);
+                    invoice.StoreId = invoiceinfo.StoreId;
 
                     var resrictions = Restrictions.On<Item>(val => val.Code).IsIn(invoiceinfo.InvoiceInfoLines.Select(d => d.ItemCode).ToList());
                     var loadedItems = session.QueryOver<Item>().Where(resrictions).List();

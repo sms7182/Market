@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 
 namespace MarketService.Models
 {
-    public class Store
+    public class Store:BaseClass
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public string Address { get; set; }
+        public virtual Guid Id { get; set; }
+        public virtual string Name { get; set; }
+        public virtual string Address { get; set; }
         //public Bank Bank { get; set; }
-        public double Lat { get; set; }
-        public double Lng { get; set; }
-        public string City { get; set; }
-        public string State { get; set; }
+        public virtual double Lat { get; set; }
+        public virtual double Lng { get; set; }
+        public virtual string City { get; set; }
+        public virtual string State { get; set; }
 
     }
 }

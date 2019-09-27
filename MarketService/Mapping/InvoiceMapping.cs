@@ -17,6 +17,8 @@ namespace MarketService.Mapping
             mapping.Id(d => d.Id).Not.GeneratedBy.Assigned();
             mapping.Schema("Market");
             mapping.References(d => d.CreatedBy).Column("CreatedById").ReadOnly();
+            //mapping.References(d => d.Store).Column("StoreId").ReadOnly();
+
             mapping.Map(d => d.CreatedById).Column("CreatedById");
             mapping.HasMany(d => d.InvoiceLines).Cascade.All().KeyColumn("InvoiceId");
         }
