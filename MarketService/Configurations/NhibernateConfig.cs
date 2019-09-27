@@ -63,7 +63,8 @@ namespace MarketService.Configurations
                 Database(PostgreSQLConfiguration.PostgreSQL82.//Raw("hbm2ddl.keywords", "none").
                 //Database(MsSqlConfiguration.MsSql2012.
                 ShowSql().
-                ConnectionString(c=>c.Host("localhost").Port(5432).Database("testdb").Username("postgres").Password("123"))
+                 ConnectionString(c => c.Host("testdb").Port(5432).Database("testdb").Username("postgres").Password("fatalerror"))
+                //ConnectionString(c => c.Host("localhost").Port(5432).Database("testdb").Username("postgres").Password("123"))
                 )
                .Mappings(m => m.AutoMappings.Add(AutoMap.AssemblyOf<InvoiceMapping>().UseOverridesFromAssemblyOf<InvoiceMapping>().Where(d=>d.Namespace== "MarketService.Models"
                &&d.BaseType==typeof(BaseClass))));

@@ -20,7 +20,7 @@ namespace MarketService
                   .Enrich.FromLogContext()
                   .MinimumLevel.Override("SerilogDemo", LogEventLevel.Information)
                   .MinimumLevel.Information()
-                   .WriteTo.File(@"C:\Users\FatalError\{Date}.txt", LogEventLevel.Information)
+                   //.WriteTo.File(@"C:\Users\FatalError\{Date}.txt", LogEventLevel.Information)
               
                       .CreateLogger();
             CreateWebHostBuilder(args).Build().Run();
@@ -30,7 +30,8 @@ namespace MarketService
             //WebHost.CreateDefaultBuilder(args)
             //.UseKestrel().UseUrls("http://*:5000")
             //.UseContentRoot(Directory.GetCurrentDirectory()).UseIISIntegration().UseStartup<Startup>().B
-            WebHost.CreateDefaultBuilder(args).UseUrls("https://*:5001")
+            WebHost.CreateDefaultBuilder(args)
+            //.UseUrls("http://*:5000")
                 .UseStartup<Startup>().UseSerilog();
     }
 }
