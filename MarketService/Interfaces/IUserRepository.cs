@@ -9,8 +9,10 @@ namespace MarketService.Interfaces
 {
     public interface IUserRepository
     {
-        User GetByUserName(string username);
-        void RegisterUser(UserInfo user);
-       
+        UserInfo GetByUserName(string username);
+        bool RegisterUser(UserInfo user);
+        bool DeleteUser(Guid id);
+
+
     }
 }

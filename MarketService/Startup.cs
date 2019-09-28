@@ -142,9 +142,10 @@ namespace MarketService
             {
                 return new ItemRepository(nc.Session);
             });
-
-            services.AddSingleton<IUserRepository, UserRepository>(d =>
-            {
+            services.AddSingleton<IStoreRepository, StoreRepository>(d => {
+                return new StoreRepository(nc.Session);
+            });
+            services.AddSingleton<IUserRepository, UserRepository>(d => {
                 return new UserRepository(nc.Session);
             });
         }

@@ -5,20 +5,27 @@ using System.Threading.Tasks;
 
 namespace MarketService.Models.Contracts
 {
-    public class InvoiceInfo
+    public class FlatInvoiceInfo
+    {
+
+        public virtual string Code { get; set; }
+        public string StoreName { get; set; }
+        public Guid StoreId { get; set; }
+
+        public virtual DateTime CreationDate { get; set; }      
+        public virtual double NetPrice { get; set; }
+        public virtual double TotalPrice { get; set; }
+        public Guid Id { get; set; }
+
+    }
+    public class InvoiceInfo:FlatInvoiceInfo
     {
         public InvoiceInfo()
         {
             InvoiceInfoLines = new List<InvoiceInfoLine>();
         }
-        public virtual string Code { get; set; }
-        public virtual DateTime CreationDate { get; set; }
-
-        public virtual string  CreatedBy { get; set; }
+        public virtual string CreatedBy { get; set; }
         public Guid CreatedById { get; set; }
-        public virtual double NetPrice { get; set; }
-        public virtual double TotalPrice { get; set; }
-        public Guid Id { get; set; }
         public List<InvoiceInfoLine> InvoiceInfoLines { get; set; }
 
     }

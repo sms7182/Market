@@ -20,7 +20,7 @@ namespace MarketService.Controllers
         {
             UserRepository = userRepository;
         }
-        [HttpGet("byuser")]
+        [HttpGet("byusername")]
         public string GetUser(string userName)
         {
 
@@ -29,15 +29,26 @@ namespace MarketService.Controllers
             return userInfojs;
         }
 
+        [HttpPost("deluser")]
+        public ActionResult<string> Delete(Guid id)
+        {
+            var result = UserRepository.DeleteUser(id);
+            var resultJson = JsonConvert.SerializeObject(result);
+            return resultJson;
+        }
 
-        [HttpPost("byusername")]
-        public void Post(string userjs)
+        [HttpPost("byuser")]
+        public ActionResult<string> Post(string userjs)
         {
             var userInfo = JsonConvert.DeserializeObject<UserInfo>(userjs);
+            var result = false;
             if (userInfo != null)
             {
-                UserRepository.RegisterUser(userInfo);
+                result = UserRepository.RegisterUser(userInfo);
             }
+
+            var resultJson = JsonConvert.SerializeObject(result);
+            return resultJson;
         }
     }
 }
