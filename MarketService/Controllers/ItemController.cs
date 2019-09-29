@@ -28,15 +28,15 @@ namespace MarketService.Controllers
             return ser;
         }
 
-        [HttpPost("byitem")]
-        public void Post(string itemjs)
+        public void Post([FromBody]ItemInfo iteminfo)
         {
-            var iteminfo = JsonConvert.DeserializeObject<ItemInfo>(itemjs);
             if (iteminfo != null)
             {
                 ItemRepository.Save(iteminfo);
             }
         }
+
+
 
     }
 }
