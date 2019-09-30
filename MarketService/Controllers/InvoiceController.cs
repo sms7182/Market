@@ -46,7 +46,7 @@ namespace MarketService.Controllers
 
         // POST api/values
        //  [HttpPost()]
-        public void Post([FromBody]InvoiceInfo invoiceInfo)
+        public ActionResult<string> Post([FromBody]InvoiceInfo invoiceInfo)
         {
 
             
@@ -56,12 +56,15 @@ namespace MarketService.Controllers
               
             }
 
-          
+            var result = false;
             if (invoiceInfo != null)
             { 
                 logger.Log(LogLevel.Information,"start saving");
-                InvoiceRepository.Save(invoiceInfo);
+                result = InvoiceRepository.Save(invoiceInfo);
             }
+
+            var resultJson = JsonConvert.SerializeObject(result);
+            return resultJson;
         }
 
         // PUT api/values/5

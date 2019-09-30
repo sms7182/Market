@@ -8,11 +8,9 @@ using MarketService.Models.Contracts;
 
 namespace MarketService.Interfaces
 {
-   public interface IInvoiceRepository
-    {
-        bool Save(InvoiceInfo invoice);
-        void Delete(Guid id);
-        InvoiceInfo Find(Guid id);
-        List<InvoiceInfo> GetInvoicesViaUser(Guid userid);
+   public interface IStoreRepository
+    {       
+        StoreInfo Find(Guid id);
+        List<StoreInfo> GetStores();
     }
 }
