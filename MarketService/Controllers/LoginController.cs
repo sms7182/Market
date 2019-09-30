@@ -38,9 +38,8 @@ namespace MarketService.Controllers
         }
 
         [HttpPost("byuser")]
-        public ActionResult<string> Post(string userjs)
-        {
-            var userInfo = JsonConvert.DeserializeObject<UserInfo>(userjs);
+        public ActionResult<string> Post([FromBody]UserInfo userInfo)
+        {            
             var result = false;
             if (userInfo != null)
             {
