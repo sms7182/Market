@@ -18,7 +18,7 @@ namespace MarketService.Models
 
         public virtual DateTime CreationDate { get; set; }
 
-        public virtual User  CreatedBy{ get; set; }
+        public virtual CustomerUserInfo CreatedBy { get; set; }
         public virtual Guid CreatedById { get; set; }
         public virtual double NetPrice { get; set; }
         public virtual double TotalPrice { get; set; }

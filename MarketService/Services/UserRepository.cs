@@ -18,8 +18,9 @@ namespace MarketService.Services
         }
         public UserInfo GetByUserName(string username)
         {
-           var user= session.Query<User>().Where(d => d.UserName == username).FirstOrDefault();
-            UserInfo userInfo = null;
+         
+           var user= session.Query<CustomerUserInfo>().Where(d => d.UserName==username).FirstOrDefault<CustomerUserInfo>();
+            UserInfo userInfo = new UserInfo();
             if(user!=null)
             {
                 userInfo.Id = user.Id;
@@ -34,7 +35,7 @@ namespace MarketService.Services
         {
             try
             {
-                var user = session.Query<User>().Where(d => d.UserName == userInfo.PhoneNumber).FirstOrDefault();
+                var user = session.Query<CustomerUserInfo>().Where(d => d.UserName == userInfo.PhoneNumber).FirstOrDefault();
                 session.BeginTransaction();
                 if (user != null)
                 {
@@ -59,7 +60,7 @@ namespace MarketService.Services
         {
             try
             {
-                var user = session.Get<User>(id);
+                var user = session.Get<CustomerUserInfo>(id);
                 session.BeginTransaction();
                 if (user != null)
                 {

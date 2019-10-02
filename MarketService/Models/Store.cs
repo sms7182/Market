@@ -7,7 +7,7 @@ namespace MarketService.Models
 {
     public class Store:BaseClass
     {
-        public virtual Guid Id { get; set; }
+     
         public virtual string Name { get; set; }
         public virtual string Address { get; set; }
         //public Bank Bank { get; set; }

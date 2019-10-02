@@ -8,14 +8,17 @@ using System.Threading.Tasks;
 
 namespace MarketService.Mapping
 {
-    public class UserMapping : IAutoMappingOverride<User>
+    public class UserMapping : IAutoMappingOverride<CustomerUserInfo>
     {
-        public void Override(AutoMapping<User> mapping)
+        public void Override(AutoMapping<CustomerUserInfo> mapping)
         {
+            mapping.Schema("Market");
+         
+
             mapping.Id(s => s.Id).GeneratedBy.Assigned();
             mapping.Map(d=>d.UserName).CustomSqlType("text");
              mapping.Map(d => d.Password).CustomSqlType("text");
-            mapping.Schema("Market");
+           
         }
     }
 }

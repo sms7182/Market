@@ -14,6 +14,7 @@ namespace MarketService.Mapping
         {
             mapping.Id(d => d.Id).GeneratedBy.Assigned();
             mapping.Schema("Market");
+           
             mapping.Map(s => s.Unit).Nullable();
             mapping.Map(d => d.Code).CustomSqlType("text");
            

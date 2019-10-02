@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MarketService.Models
 {
-    public class User:BaseClass
+    public class CustomerUserInfo : BaseClass
     {
         public virtual string UserName { get; set; }
 
