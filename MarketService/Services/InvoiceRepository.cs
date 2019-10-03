@@ -132,12 +132,22 @@ namespace MarketService.Services
                 }
                 else
                 {
+                   var lastivoice= session.Query<Invoice>().OrderByDescending(d => d.Code).FirstOrDefault();
+                    var codenumber = 1;
+                    if (lastivoice != null)
+                    {
+                        if(int.TryParse(lastivoice.Code, out codenumber))
+                        {
+                            codenumber = codenumber ;
+                        }
+
+                    }
                     //var user = session.Query<User>().Where(d => d.UserName == invoiceinfo.CreatedBy).FirstOrDefault();
                     invoice = new Invoice();
                     invoice.Id = invoiceinfo.Id;
                     invoice.TotalPrice = invoiceinfo.TotalPrice;
                     invoice.NetPrice = invoiceinfo.NetPrice;
-                    invoice.Code = invoiceinfo.Code;
+                    invoice.Code = (codenumber+1).ToString();
                     invoice.CreatedById = invoiceinfo.CreatedById;
                     invoice.CreationDate = invoiceinfo.CreationDate;
                     //invoice.Store = session.Get<Store>(invoiceinfo.StoreId);
@@ -166,9 +176,9 @@ namespace MarketService.Services
                 return true;
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return false;
+                throw new Exception(e.StackTrace);
             }
             
         }
