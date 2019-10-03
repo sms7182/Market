@@ -13,6 +13,6 @@ namespace MarketService.Interfaces
         bool Save(InvoiceInfo invoice);
         void Delete(Guid id);
         InvoiceInfo Find(Guid id);
-        List<InvoiceInfo> GetInvoicesViaUser(Guid userid);
+        List<FlatInvoiceInfo> GetInvoicesViaUser(Guid userid);
     }
 }

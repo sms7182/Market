@@ -64,16 +64,25 @@ namespace MarketService.Services
             return invoiceforreturn;
 
         }
-        public List<InvoiceInfo> GetInvoicesViaUser(Guid userid)
+        public List<FlatInvoiceInfo> GetInvoicesViaUser(Guid userid)
         {
             try
             {
                 var userids = new List<Guid>() { userid };
                 var invoices = session.QueryOver<Invoice>().Where(d => d.CreatedById.IsIn(userids)).OrderBy(d => d.CreationDate).Desc().List().ToList();
-                List<InvoiceInfo> invoiceInfos = new List<InvoiceInfo>();
+                List<FlatInvoiceInfo> invoiceInfos = new List<FlatInvoiceInfo>();
                 for (var i = 0; i < invoices.Count; i++)
                 {
-                    var tempInfo = MapInvoiceToInvoiceInfo(invoices[i]);
+                    var invoice = invoices[i];
+                    var tempInfo = new FlatInvoiceInfo();
+                    tempInfo.Id = invoice.Id;
+                    tempInfo.StoreName = invoice.Store.Name;
+                    tempInfo.NetPrice = invoice.NetPrice;
+                    tempInfo.TotalPrice = invoice.TotalPrice;
+                    tempInfo.Code = invoice.Code;
+                    tempInfo.CreatedBy = invoice.CreatedBy.UserName;
+                    tempInfo.CreatedById = invoice.CreatedBy.Id;
+                    tempInfo.CreationDate = invoice.CreationDate;
                     invoiceInfos.Add(tempInfo);
                 }
                 return invoiceInfos;
@@ -82,7 +91,7 @@ namespace MarketService.Services
 
             catch (Exception ex)
             {
-                return new List<InvoiceInfo>();
+                return new List<FlatInvoiceInfo>();
             }
 
 
