@@ -16,11 +16,11 @@ namespace MarketService.Mapping
         {
             mapping.Id(d => d.Id).GeneratedBy.Assigned();
             mapping.Schema("Market");
-            mapping.References(d => d.CreatedBy).Column("CreatedById").ReadOnly().Not.LazyLoad();
-            mapping.References(d => d.Store).Column("StoreId").ReadOnly().Not.LazyLoad();
+            mapping.References(d => d.CreatedBy).Column("CreatedById");
+            mapping.References(d => d.Store).Column("StoreId");
 
-            mapping.Map(d => d.CreatedById).Column("CreatedById");
-            mapping.Map(d => d.StoreId).Column("StoreId");
+//            mapping.Map(d => d.CreatedById).Column("CreatedById");
+  //          mapping.Map(d => d.StoreId).Column("StoreId");
             mapping.Map(d=>d.CreationDate);
             mapping.HasMany(d => d.InvoiceLines).Cascade.All().KeyColumn("InvoiceId");
         }

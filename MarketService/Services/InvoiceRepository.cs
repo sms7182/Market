@@ -69,7 +69,7 @@ namespace MarketService.Services
             try
             {
                 var userids = new List<Guid>() { userid };
-                var invoices = session.QueryOver<Invoice>().Where(d => d.CreatedById.IsIn(userids)).OrderBy(d => d.CreationDate).Desc().List().ToList();
+                var invoices = session.QueryOver<Invoice>().Where(d => d.CreatedBy.Id.IsIn(userids)).OrderBy(d => d.CreationDate).Desc().List().ToList();
                 List<FlatInvoiceInfo> invoiceInfos = new List<FlatInvoiceInfo>();
                 for (var i = 0; i < invoices.Count; i++)
                 {
@@ -151,16 +151,17 @@ namespace MarketService.Services
                         }
 
                     }
-                    //var user = session.Query<User>().Where(d => d.UserName == invoiceinfo.CreatedBy).FirstOrDefault();
+                    var user = session.Get<CustomerUserInfo>(invoiceinfo.CreatedById);//).FirstOrDefault();
+
                     invoice = new Invoice();
                     invoice.Id = invoiceinfo.Id;
                     invoice.TotalPrice = invoiceinfo.TotalPrice;
                     invoice.NetPrice = invoiceinfo.NetPrice;
                     invoice.Code = (codenumber+1).ToString();
-                    invoice.CreatedById = invoiceinfo.CreatedById;
+                    invoice.CreatedBy = user;
                     invoice.CreationDate = invoiceinfo.CreationDate;
-                    //invoice.Store = session.Get<Store>(invoiceinfo.StoreId);
-                    invoice.StoreId = invoiceinfo.StoreId;
+                    invoice.Store = session.Get<Store>(invoiceinfo.StoreId);
+                    
 
                     var resrictions = Restrictions.On<Item>(val => val.Code).IsIn(invoiceinfo.InvoiceInfoLines.Select(d => d.ItemCode).ToList());
                     var loadedItems = session.QueryOver<Item>().Where(resrictions).List();

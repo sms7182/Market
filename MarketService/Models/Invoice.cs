@@ -14,12 +14,12 @@ namespace MarketService.Models
         public virtual ICollection<InvoiceLine> InvoiceLines { get; set; }
         public virtual string Code { get; set; }
         public virtual Store Store { get; set; }
-        public virtual Guid StoreId { get; set; }
+       // public virtual Guid StoreId { get; set; }
 
         public virtual DateTime CreationDate { get; set; }
 
         public virtual CustomerUserInfo CreatedBy { get; set; }
-        public virtual Guid CreatedById { get; set; }
+        //public virtual Guid CreatedById { get; set; }
         public virtual double NetPrice { get; set; }
         public virtual double TotalPrice { get; set; }
     }
