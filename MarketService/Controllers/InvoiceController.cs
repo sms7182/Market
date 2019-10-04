@@ -30,17 +30,14 @@ namespace MarketService.Controllers
             InvoiceRepository = _invoiceRepository;
             logger = _logger;
         }
-         [HttpGet()]
+         [HttpGet("byid")]
         public ActionResult<string> Get(Guid id)
         {
 
-            if (id == Guid.Empty)
-            {
-                return "Ok";
-            }
-           var invoice= InvoiceRepository.Find(id);
            
-            var ser = JsonConvert.SerializeObject(invoice);
+           var invoice= InvoiceRepository.Find(id);
+
+            var ser = invoice != null ? JsonConvert.SerializeObject(invoice) : string.Empty ;
             return ser;
         }
 

@@ -33,8 +33,8 @@ namespace MarketService.Services
             if (invoice != null) {
                 return MapInvoiceToInvoiceInfo(invoice);
             }
-            
-            return new InvoiceInfo();
+
+            return null;
         }
         private InvoiceInfo MapInvoiceToInvoiceInfo(Invoice invoice)
         {
