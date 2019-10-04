@@ -25,8 +25,13 @@ namespace MarketService.Controllers
         {
 
             var user=  UserRepository.GetByUserName(userName);
-            var userInfojs = JsonConvert.SerializeObject(user);
-            return userInfojs;
+
+            if (user != null)
+            {
+                var userInfojs = JsonConvert.SerializeObject(user);
+                return userInfojs;
+            }
+            return string.Empty;
         }
 
         [HttpPost("deluser")]
@@ -37,7 +42,7 @@ namespace MarketService.Controllers
             return resultJson;
         }
 
-        [HttpPost("byuser")]
+      //  [HttpPost("byuser")]
         public ActionResult<string> Post([FromBody]UserInfo userInfo)
         {            
             var result = false;

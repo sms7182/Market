@@ -9,6 +9,8 @@ namespace MarketService.Mapping
         public void Override(AutoMapping<Store> mapping)
         {
             mapping.Schema("Market");
+           
+
             mapping.Id(s => s.Id).GeneratedBy.Assigned();
             
         }

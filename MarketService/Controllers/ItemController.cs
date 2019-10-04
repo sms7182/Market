@@ -23,9 +23,16 @@ namespace MarketService.Controllers
         public ActionResult<string> GetItem(string itemcode)
         {
 
-           var d= ItemRepository.GetItemByCode(itemcode);
-           var ser= JsonConvert.SerializeObject(d);
-            return ser;
+            try
+            {
+                var d = ItemRepository.GetItemByCode(itemcode);
+                var ser = JsonConvert.SerializeObject(d);
+                return ser;
+            }
+            catch(Exception e)
+            {
+                throw new Exception(e.StackTrace);
+            }
         }
 
         //[HttpPost("byitem")]

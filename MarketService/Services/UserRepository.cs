@@ -26,9 +26,10 @@ namespace MarketService.Services
                 userInfo.Id = user.Id;
                 userInfo.PhoneNumber = user.UserName;
                 userInfo.Password = user.Password;
+                return userInfo;
             }
 
-            return userInfo;
+            return null;
         }
 
         public bool RegisterUser(UserInfo userInfo)
@@ -44,6 +45,8 @@ namespace MarketService.Services
                 }
                 else
                 {
+                    user = new CustomerUserInfo();
+                    user.Id = userInfo.Id;
                     user.UserName = userInfo.PhoneNumber;
                     user.Password = userInfo.Password;
                     session.Save(user);

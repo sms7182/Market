@@ -12,8 +12,10 @@ namespace MarketService.Mapping
     {
         public void Override(AutoMapping<CustomerUserInfo> mapping)
         {
+            
             mapping.Schema("Market");
-         
+
+           // mapping.Table("CustomerUserInfo");
 
             mapping.Id(s => s.Id).GeneratedBy.Assigned();
             mapping.Map(d=>d.UserName).CustomSqlType("text");
